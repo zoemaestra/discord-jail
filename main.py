@@ -66,7 +66,7 @@ async def postmessage(interaction: discord.Interaction, msg: str):
         
         messages = newmessages
         messages.append(proposal)
-        embed=discord.Embed(title=f"New proposal no. {proposal['proposal']}", description=f'"{msg}"\n by <@!{message["author"]}>')
+        embed=discord.Embed(title=f"New proposal no. {proposal['proposal']}", description=f'"{msg}"\n by <@!{interaction.user.id}>')
         await logchannel.send(embed=embed)
         await interaction.response.send_message(f"Message proposed under proposal no. {proposal['proposal']}! Any previous proposals you made for this vote have been auto deleted, along with any votes it had.", ephemeral=True)
 
@@ -147,8 +147,8 @@ async def jail(ctx, member: discord.Member):
             await ctx.channel.send(f"User is already in jail")
         else:
             await member.add_roles(jailrole)
-            await ctx.channel.send(f"{member.mention} has been banished to the jail!")
-            await jailchannel.send(f"{member.mention} has been banished to the jail!")
+            await ctx.channel.send(f"{member.mention} has been banished to <#{config['jail']}>!")
+            await jailchannel.send(f"{member.mention} has been banished to <#{config['jail']}>!")
 
 @bot.command()
 async def unjail(ctx, member: discord.Member):
@@ -162,8 +162,8 @@ async def unjail(ctx, member: discord.Member):
             await ctx.channel.send(f"User is not in jail")
         else:
             await member.remove_roles(jailrole)
-            await ctx.channel.send(f"{member.mention} has been released from jail!")
-            await jailchannel.send(f"{member.mention} has been released from jail!")
+            await ctx.channel.send(f"{member.mention} has been released from <#{config['jail']}>!")
+            await jailchannel.send(f"{member.mention} has been released from <#{config['jail']}>!")
 
 @bot.command()
 async def sync(ctx):
